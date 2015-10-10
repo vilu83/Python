@@ -9,7 +9,7 @@ def his(linea):                 ##Funcion que retorna un dic que contiene la fre
         return dic
 
 def disteu():
-
+    hihihihohohohohoho
 def discos():
 
             
