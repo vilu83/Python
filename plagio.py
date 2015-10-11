@@ -65,9 +65,21 @@ def distCoseno(histograma1,histograma2):
 ### Interfaz ###
 
 ## Configuracion ##
-flag = True
+'''flag = True
 def a():
     print 'Ha elegido opcion A'
+    a = raw_input("Ingrese nombre del archivo 1 : ")
+    b = raw_input("Ingrese nombre del archivo 2 : ")
+    archivo1 = open(a)
+    archivo2= open(b)
+    texto1 = []
+    texto 2 = []
+    for parrafo in archivo1:
+        if parrafo != "\n":               ##Comprueba que el parrafo no sea solo un salto de linea
+            texto1.append(parrafo.strip().split())                     
+    for parrafo2 in archivo2:
+        if parrafo2 != "\n":      ##Comprueba que el parrafo no sea solo un salto de linea
+            
     return True
 def b():
     print 'Ha elegido opcion B'
@@ -107,12 +119,13 @@ while flag:
         else:
             error = False
     flag = opciones[seleccion]()
-
 '''
+
 a = raw_input("Ingrese nombre archivo 1 aqui: ")
 b = raw_input("Ingrese nombre archivo 2 aqui: ")
 archivo1 = open(a)
 pt1 = 0                               ##Numero del parrafo del texto 1
+distancias = []
 for parrafo in archivo1:
     if parrafo != "\n":               ##Comprueba que el parrafo no sea solo un salto de linea
         pt1 += 1                      ## Cada vez que pasa por este punto, cambia de parrafo y se le suma 1 al parrafo actual
@@ -125,6 +138,6 @@ for parrafo in archivo1:
                 dic2 = histoParrafo(parrafo2)
                 dist1 = distEuclidiana(dic1, dic2)
                 dist2 = distCoseno(dic1, dic2)
-                print 'Distancia Euclidianta:',dist1
-                print 'Distancaia Coseno:',dist2
-'''
+                distancias.append((pt1, pt2, dist1, dist2))
+print distancias
+
