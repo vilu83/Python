@@ -76,6 +76,7 @@ distanciasC = {}
 conflictos = []
 Euclid = np.array([])
 Coseno = np.array([])
+porcentajes = []
 for parrafo1 in archivo1:
     if parrafo1 != "\n":               ##Comprueba que el parrafo no sea solo un salto de linea
         nParr1 += 1
@@ -90,12 +91,22 @@ for parrafo1 in archivo1:
                 distC = distCoseno(histo1, histo2) #Distancia Coseno entre Parrafo1 y Parrafo2
                 distanciasE[(nParr1,nParr2)] = distE
                 distanciasC[(nParr1,nParr2)] = distC
-                if distE == 0 or distC == 0:
-                    conflictos.append((nParr1,nParr2))
+                porcentaje = 100 - (round(distC,2) * 100)    #Calcula porcentaje de similitud entre ambos parrafos
+                porcentajes.append(porcentaje)
+                if porcentaje > 50:                          #Si el porcentaje es mayor a 50, se agrega a la lista de parrafos en conflicto
+                    conflictos.append((nParr1,nParr2,porcentaje))
+
+print "Los parrafos en conflicto son:"
+for i in conflictos:
+    parra1, parra2, porcen = i
+    print "Los parrafos", str(parra1), "y", str(parra2), "con un", str(porcen),"% de similitud."
 
 #Grafica
 tablaC = np.array([[1,2,3],[3,4,5],[5,6,6]])
 tablaE = np.array([[1,2],[3,4],[5,6]])
 print tablaC
+plt.title("Frecuencia de porcentajes de similitud entre parrafos")
+plt.grid(True)
 plt.plot(tablaC)
 plt.show()
+
