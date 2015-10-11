@@ -8,9 +8,26 @@ def his(linea):                 ##Funcion que retorna un dic que contiene la fre
                 dic[i] = val.count(i)
         return dic
 
-def disteu():
-    hihihihohohohohoho
-def discos():
+def deu(dat1, dat2):
+    pal = set()
+    for i in dat1:
+        pal.add(i)
+    for i in dat 2:
+        pal.add(i)
+    suma = 0
+    for i in pal:
+        if i not in dat1:
+            a = 0
+        else:
+            a = dat1[i]
+        if i not in dat2:
+            b = 0
+        else:
+            b = dat2[i]
+        suma += (a - b)**2
+    return suma**0.5
+    
+def dcos():
 
             
 
