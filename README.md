@@ -1,3 +1,0 @@
-# Python
-
-Hello my frrendd
