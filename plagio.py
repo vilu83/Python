@@ -67,17 +67,23 @@ def distCoseno(histograma1,histograma2):
 ## Configuracion ##
 flag = True
 def a():
-    print 'Ha elejido opcion A'
+    print 'Ha elegido opcion A'
+    return True
 def b():
-    print 'Ha elejido opcion B'
+    print 'Ha elegido opcion B'
+    return True
 def c():
-    print 'Ha elejido opcion C'
+    print 'Ha elegido opcion C'
+    return True
 def d():
-    print 'Hasta Pronto...'
-    flag = False
+    print 'Hasta Pronto'
+    return False
+    
 def tito():
     print 'Usted ha encontrado el Easter Egg'
     os.system('ludo.py')
+    return True
+
 opciones = {
         'a':a,
         'b':b,
@@ -100,7 +106,7 @@ while flag:
             print 'Elija una opcion valida'
         else:
             error = False
-    opciones[seleccion]()
+    flag = opciones[seleccion]()
 
 '''
 a = raw_input("Ingrese nombre archivo 1 aqui: ")
