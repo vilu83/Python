@@ -1,33 +1,64 @@
+#Importar funciones para Graficar
 from matplotlib.pylab import hist, show
 
-def his(linea):                 ##Funcion que retorna un dic que contiene la frecuencia de cada palabra en el parrafo
-    val = linea.strip().split()
-        dic = {}
-        for i in val:
-            if i not in dic:
-                dic[i] = val.count(i)
-        return dic
+#Funcion que retorna un dic que contiene la frecuencia de cada palabra en el parrafo
+def histoParrafo(parrafo):
+    palabras = parrafo.strip().split()
+    histograma = {}
+    for palabra in palabras:
+        if palabra not in histograma.keys():
+            histograma[palabra] = palabras.count(palabra)
+    return histograma
 
-def deu(dat1, dat2):   ##Funcion que calcula la distancia euclidiana a partir de los diccionarios con las frecuencias de las palabras. Usar diccionario vacio para deu(h1,0)
-    pal = set()
-    for i in dat1:
-        pal.add(i)
-    for i in dat 2:
-        pal.add(i)
+#Retorna un conjunto con todas las palabras de ambos parrafos y completa los histogramas con las palabras que no aparecen en los parrafos
+def vocabulario(histograma1,histograma2):
+    vocab = set()
+    for palabra in histograma1:
+        vocab.add(palabra)
+    for palabra in histograma2:
+        vocab.add(palabra)
+    return vocab
+
+#Funcion que calcula la distancia euclidiana a partir de los diccionarios con las frecuencias de las palabras. Usar diccionario vacio para deu(h1,0)
+def distEuclidiana(histograma1, histograma2):
+    #Obtener conjunto con todas las palabras
+    vocab = vocabulario(histograma1, histograma2)
+    #Sumar la cantidad de palabras diferentes
     suma = 0
-    for i in pal:
-        if i not in dat1:
-            a = 0
+    for palabra in vocab:
+        #Cantidad de Veces que esta la palabra en el Histograma 1
+        if palabra not in histograma1:
+            palabraR1 = 0
         else:
-            a = dat1[i]
-        if i not in dat2:
-            b = 0
+            palabraR1 = histograma1[palabraR1]
+        #Cantidad de Veces que esta la palabra en el Histograma 1
+        if palabra not in histograma2:
+            palabraR2 = 0
         else:
-            b = dat2[i]
-        suma += (a - b)**2
-    return suma**0.5
+            palabraR2 = histograma2[palabraR2]
+        suma += (palabraR1 - palabraR2) ** 2
+    return suma ** 0.5
+
+#Funcion que calcula la distancia Coseno de dos Histogramas
+def distCoseno(histograma1,histograma2):
+    #Guarda las distancias Euclidianas de ambos histogramas
+    distE1,distE2 = distEuclidiana(histograma1),distEuclidiana(histograma2)
     
-def dcos():
+    suma = 0
+    
+    for palabra in vocab:
+        #Cantidad de Veces que esta la palabra en el Histograma 1
+        if palabra not in histograma1:
+            palabraR1 = 0
+        else:
+            palabraR1 = histograma1[palabraR1]
+        #Cantidad de Veces que esta la palabra en el Histograma 1
+        if palabra not in histograma2:
+            palabraR2 = 0
+        else:
+            palabraR2 = histograma2[palabraR2]
+        suma += palabraR1 * palabraR2
+    return 1 - (suma/(distE1*distE2))
 
             
 
