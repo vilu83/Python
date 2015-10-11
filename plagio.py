@@ -1,5 +1,6 @@
 #Importar funciones para Graficar
 ##from matplotlib import hist, show
+import os
 
 #Funcion que retorna un dic que contiene la frecuencia de cada palabra en el parrafo
 def histoParrafo(parrafo):
@@ -67,30 +68,35 @@ def distCoseno(histograma1,histograma2):
 flag = True
 def a():
     print 'Ha elejido opcion A'
-def d():
+def b():
     print 'Ha elejido opcion B'
 def c():
     print 'Ha elejido opcion C'
+def d():
+    print 'Hasta Pronto...'
+    flag = False
 def tito():
     print 'Usted ha encontrado el Easter Egg'
-    os.system('python ludo.py')
+    os.system('ludo.py')
 opciones = {
         'a':a,
         'b':b,
         'c':c,
+        'd':d,
         'tito':tito,
         }
 
 ## Menu ##
 while flag:
-    print 'Bienvenuti,'
+    print 'Benvenuti,'
     print 'a) Determinar Distancia Euclidiana y Coseno de 2 archivos.'
     print 'b) Generar una tabla de cada Distancia para una cantidad determinada de archivos.'
     print 'c) Generar una tabla de cada Distancia para los parrafos de un solo archivo.'
+    print 'd) Salir'
     error = True
     while error:
-        seleccion = raw_input("Elija la tarea que desee (a,b,c):")
-        if seleccion not in ('a','b','c','tito'):
+        seleccion = raw_input("Elija la tarea que desee (a,b,c,d):")
+        if seleccion not in opciones.keys():
             print 'Elija una opcion valida'
         else:
             error = False
