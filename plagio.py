@@ -42,21 +42,20 @@ def distEuclidiana(histograma1, histograma2):
 #Funcion que calcula la distancia Coseno de dos Histogramas
 def distCoseno(histograma1,histograma2):
     #Guarda las distancias Euclidianas de ambos histogramas
-    distE1,distE2 = distEuclidiana(histograma1),distEuclidiana(histograma2)
+    distE1,distE2 = distEuclidiana(histograma1,[]),distEuclidiana(histograma2,[])
     
     suma = 0
-    
     for palabra in vocab:
         #Cantidad de Veces que esta la palabra en el Histograma 1
         if palabra not in histograma1:
             palabraR1 = 0
         else:
-            palabraR1 = histograma1[palabraR1]
+            palabraR1 = histograma1[palabra]
         #Cantidad de Veces que esta la palabra en el Histograma 1
         if palabra not in histograma2:
             palabraR2 = 0
         else:
-            palabraR2 = histograma2[palabraR2]
+            palabraR2 = histograma2[palabra]
         suma += palabraR1 * palabraR2
     return 1 - (suma/(distE1*distE2))
 
