@@ -33,14 +33,19 @@ def dcos():
 
 a = raw_input("Ingrese nombre archivo 1 aqui: ")
 b = raw_input("Ingrese nombre archivo 2 aqui: ")
-
 archivo1 = open(a)
+pt1 = 0                               ##Numero del parrafo del texto 1
 for parrafo in archivo1:
-    if parrafo != "\n": ##Comprueba que el parrafo no sea solo un salto de linea
+    if parrafo != "\n":               ##Comprueba que el parrafo no sea solo un salto de linea
+        pt1 += 1                      ## Cada vez que pasa por este punto, cambia de parrafo y se le suma 1 al parrafo actual
         dic1 = his(parrafo)
         archivo2 = open(b)
+        pt2 = 0                       ##Numero del parrafo del texto 2
         for parrafo2 in archivo2:
-            if parrafo2 != "\n": ##Comprueba que el parrafo no sea solo un salto de linea
+            if parrafo2 != "\n":      ##Comprueba que el parrafo no sea solo un salto de linea
+                pt2 += 1              ## Cada vez que pasa por este punto, cambia de parrafo y se le suma 1 al parrafo actual
                 dic2 = his(parrafo2)
+                dist1 = deu(dic1, dic2)
+                dist2 = dcos(dic1, dic2)
                 
         
