@@ -66,7 +66,7 @@ def distCoseno(histograma1,histograma2):
             palabraR2 = histograma2[palabra]
         suma += palabraR1 * palabraR2
     return abs(round(1 - (suma/(distE1*distE2)),12))
-
+'
 a = raw_input("Ingrese nombre archivo 1 aqui: ")
 b = raw_input("Ingrese nombre archivo 2 aqui: ")
 archivo1 = open(a)
