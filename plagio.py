@@ -40,12 +40,17 @@ def distEuclidiana(histograma1, histograma2):
         suma += (palabraR1 - palabraR2) ** 2
     return suma ** 0.5
 
+def deu0(hist):                                  ##Distancia euclidiana para un valor y 0
+    suma = 0
+    for valor in hist.values():
+        suma += valor**2
+    return suma**0.5
+
 #Funcion que calcula la distancia Coseno de dos Histogramas
 def distCoseno(histograma1,histograma2):
     #Guarda las distancias Euclidianas de ambos histogramas
-    vacio = {}
-    distE1,distE2 = distEuclidiana(histograma1,vacio),distEuclidiana(histograma2,vacio)
-    
+    distE1 = deu0(histograma1)
+    distE2 = deu0(histograma2)    
     suma = 0
     vocab = vocabulario(histograma1, histograma2)
     for palabra in vocab:
