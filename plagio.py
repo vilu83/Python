@@ -8,7 +8,7 @@ def his(linea):                 ##Funcion que retorna un dic que contiene la fre
                 dic[i] = val.count(i)
         return dic
 
-def deu(dat1, dat2):
+def deu(dat1, dat2):   ##Funcion que calcula la distancia euclidiana a partir de los diccionarios con las frecuencias de las palabras. Usar diccionario vacio para deu(h1,0)
     pal = set()
     for i in dat1:
         pal.add(i)
