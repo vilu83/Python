@@ -6,9 +6,11 @@ import matplotlib.pyplot as plt
 def histoParrafo(parrafo):
     palabras = parrafo.strip().split()
     histograma = {}
-    for palabra in palabras:
+        for palabra in palabras:
         if palabra not in histograma.keys():
             histograma[palabra] = palabras.count(palabra)
+            tpl = (palabra, histograma[palabra])
+            global histo01.append(tpl)
     return histograma
 
 #Retorna un conjunto con todas las palabras de ambos parrafos y completa los histogramas con las palabras que no aparecen en los parrafos
