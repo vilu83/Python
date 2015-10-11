@@ -88,7 +88,7 @@ for parrafo in archivo1:
 for i in distancias:
     print '-----------------'
     apt1, apt2, adist1, adist2 = i
-    print pt1, '-', pt2
+    print apt1, '-', apt2
     print 'Euc:', adist1
     print 'Cos:', adist2
     
