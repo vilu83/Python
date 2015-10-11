@@ -85,5 +85,11 @@ for parrafo in archivo1:
                 dist1 = distEuclidiana(dic1, dic2)
                 dist2 = distCoseno(dic1, dic2)
                 distancias.append((pt1, pt2, dist1, dist2))
-print distancias
+for i in distancias:
+    print '-----------------'
+    apt1, apt2, adist1, adist2 = i
+    print pt1, '-', pt2
+    print 'Euc:', adist1
+    print 'Cos:', adist2
+    
 
