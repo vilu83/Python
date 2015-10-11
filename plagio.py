@@ -1,6 +1,6 @@
 #Importar funciones para Graficar
-##from matplotlib import hist, show
-import os
+import numpy as np
+import matplotlib.pyplot as plt
 
 #Funcion que retorna un dic que contiene la frecuencia de cada palabra en el parrafo
 def histoParrafo(parrafo):
@@ -70,30 +70,32 @@ def distCoseno(histograma1,histograma2):
 a = raw_input("Ingrese nombre archivo 1 aqui: ")
 b = raw_input("Ingrese nombre archivo 2 aqui: ")
 archivo1 = open(a)
-pt1 = 0                               ##Numero del parrafo del texto 1
-distancias = []
+nParr1 = 0                               ##Permite saber que parrafo se esta revisando del Archivo 1
+distanciasE = {}
+distanciasC = {}
 conflictos = []
-for parrafo in archivo1:
-    if parrafo != "\n":               ##Comprueba que el parrafo no sea solo un salto de linea
-        pt1 += 1                      ## Cada vez que pasa por este punto, cambia de parrafo y se le suma 1 al parrafo actual
-        dic1 = histoParrafo(parrafo)
+Euclid = np.array([])
+Coseno = np.array([])
+for parrafo1 in archivo1:
+    if parrafo1 != "\n":               ##Comprueba que el parrafo no sea solo un salto de linea
+        nParr1 += 1
+        histo1 = histoParrafo(parrafo1)
         archivo2 = open(b)
-        pt2 = 0                       ##Numero del parrafo del texto 2
+        nParr2 = 0                       ##Permite saber que parrafo se esta revisando del Archivo 1
         for parrafo2 in archivo2:
             if parrafo2 != "\n":      ##Comprueba que el parrafo no sea solo un salto de linea
-                pt2 += 1              ## Cada vez que pasa por este punto, cambia de parrafo y se le suma 1 al parrafo actual
-                dic2 = histoParrafo(parrafo2)
-                dist1 = distEuclidiana(dic1, dic2)
-                dist2 = distCoseno(dic1, dic2)
-                distancias.append((pt1, pt2, dist1, dist2))
-                if dist1 == 0:
-                    conflictos.append((pt1,pt2))
-                    
-for i in distancias:
-    print '-----------------'
-    apt1, apt2, adist1, adist2 = i
-    print apt1, '-', apt2
-    print 'Euc:', adist1
-    print 'Cos:', adist2
-    
+                nParr2 += 1
+                histo2 = histoParrafo(parrafo2)
+                distE = distEuclidiana(histo1, histo2) #Distancia Euclidiana entre Parrafo1 y Parrafo2
+                distC = distCoseno(histo1, histo2) #Distancia Coseno entre Parrafo1 y Parrafo2
+                distanciasE[(nParr1,nParr2)] = distE
+                distanciasC[(nParr1,nParr2)] = distC
+                if distE == 0 or distC == 0:
+                    conflictos.append((nParr1,nParr2))
 
+#Grafica
+tablaC = np.array([[1,2,3],[3,4,5],[5,6,6]])
+tablaE = np.array([[1,2],[3,4],[5,6]])
+print tablaC
+plt.plot(tablaC)
+plt.show()
