@@ -61,8 +61,42 @@ def distCoseno(histograma1,histograma2):
         suma += palabraR1 * palabraR2
     return 1 - (suma/(distE1*distE2))
 
-            
+### Interfaz ###
 
+## Configuracion ##
+flag = True
+def a():
+    print 'Ha elejido opcion A'
+def d():
+    print 'Ha elejido opcion B'
+def c():
+    print 'Ha elejido opcion C'
+def tito():
+    print 'Usted ha encontrado el Easter Egg'
+    os.system('python ludo.py')
+opciones = {
+        'a':a,
+        'b':b,
+        'c':c,
+        'tito':tito,
+        }
+
+## Menu ##
+while flag:
+    print 'Bienvenuti,'
+    print 'a) Determinar Distancia Euclidiana y Coseno de 2 archivos.'
+    print 'b) Generar una tabla de cada Distancia para una cantidad determinada de archivos.'
+    print 'c) Generar una tabla de cada Distancia para los parrafos de un solo archivo.'
+    error = True
+    while error:
+        seleccion = raw_input("Elija la tarea que desee (a,b,c):")
+        if seleccion not in ('a','b','c','tito'):
+            print 'Elija una opcion valida'
+        else:
+            error = False
+    opciones[seleccion]()
+
+'''
 a = raw_input("Ingrese nombre archivo 1 aqui: ")
 b = raw_input("Ingrese nombre archivo 2 aqui: ")
 archivo1 = open(a)
@@ -79,7 +113,6 @@ for parrafo in archivo1:
                 dic2 = histoParrafo(parrafo2)
                 dist1 = distEuclidiana(dic1, dic2)
                 dist2 = distCoseno(dic1, dic2)
-                print dist1
-                print dist2
-                
-        
+                print 'Distancia Euclidianta:',dist1
+                print 'Distancaia Coseno:',dist2
+'''
