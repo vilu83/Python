@@ -1,5 +1,5 @@
 #Importar funciones para Graficar
-from matplotlib.pylab import hist, show
+##from matplotlib import hist, show
 
 #Funcion que retorna un dic que contiene la frecuencia de cada palabra en el parrafo
 def histoParrafo(parrafo):
@@ -30,12 +30,12 @@ def distEuclidiana(histograma1, histograma2):
         if palabra not in histograma1:
             palabraR1 = 0
         else:
-            palabraR1 = histograma1[palabraR1]
+            palabraR1 = histograma1[palabra]
         #Cantidad de Veces que esta la palabra en el Histograma 1
         if palabra not in histograma2:
             palabraR2 = 0
         else:
-            palabraR2 = histograma2[palabraR2]
+            palabraR2 = histograma2[palabra]
         suma += (palabraR1 - palabraR2) ** 2
     return suma ** 0.5
 
@@ -70,14 +70,16 @@ pt1 = 0                               ##Numero del parrafo del texto 1
 for parrafo in archivo1:
     if parrafo != "\n":               ##Comprueba que el parrafo no sea solo un salto de linea
         pt1 += 1                      ## Cada vez que pasa por este punto, cambia de parrafo y se le suma 1 al parrafo actual
-        dic1 = his(parrafo)
+        dic1 = histoParrafo(parrafo)
         archivo2 = open(b)
         pt2 = 0                       ##Numero del parrafo del texto 2
         for parrafo2 in archivo2:
             if parrafo2 != "\n":      ##Comprueba que el parrafo no sea solo un salto de linea
                 pt2 += 1              ## Cada vez que pasa por este punto, cambia de parrafo y se le suma 1 al parrafo actual
-                dic2 = his(parrafo2)
-                dist1 = deu(dic1, dic2)
-                dist2 = dcos(dic1, dic2)
+                dic2 = histoParrafo(parrafo2)
+                dist1 = distEuclidiana(dic1, dic2)
+                dist2 = distCoseno(dic1, dic2)
+                print dist1
+                print dist2
                 
         
