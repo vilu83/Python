@@ -65,66 +65,7 @@ def distCoseno(histograma1,histograma2):
         else:
             palabraR2 = histograma2[palabra]
         suma += palabraR1 * palabraR2
-    return 1 - (suma/(distE1*distE2))
-
-### Interfaz ###
-
-## Configuracion ##
-'''flag = True
-def a():
-    print 'Ha elegido opcion A'
-    a = raw_input("Ingrese nombre del archivo 1 : ")
-    b = raw_input("Ingrese nombre del archivo 2 : ")
-    archivo1 = open(a)
-    archivo2= open(b)
-    texto1 = []
-    texto 2 = []
-    for parrafo in archivo1:
-        if parrafo != "\n":               ##Comprueba que el parrafo no sea solo un salto de linea
-            texto1.append(parrafo.strip().split())                     
-    for parrafo2 in archivo2:
-        if parrafo2 != "\n":      ##Comprueba que el parrafo no sea solo un salto de linea
-            
-    return True
-def b():
-    print 'Ha elegido opcion B'
-    return True
-def c():
-    print 'Ha elegido opcion C'
-    return True
-def d():
-    print 'Hasta Pronto'
-    return False
-    
-def tito():
-    print 'Usted ha encontrado el Easter Egg'
-    os.system('ludo.py')
-    return True
-
-opciones = {
-        'a':a,
-        'b':b,
-        'c':c,
-        'd':d,
-        'tito':tito,
-        }
-
-## Menu ##
-while flag:
-    print 'Benvenuti,'
-    print 'a) Determinar Distancia Euclidiana y Coseno de 2 archivos.'
-    print 'b) Generar una tabla de cada Distancia para una cantidad determinada de archivos.'
-    print 'c) Generar una tabla de cada Distancia para los parrafos de un solo archivo.'
-    print 'd) Salir'
-    error = True
-    while error:
-        seleccion = raw_input("Elija la tarea que desee (a,b,c,d):")
-        if seleccion not in opciones.keys():
-            print 'Elija una opcion valida'
-        else:
-            error = False
-    flag = opciones[seleccion]()
-'''
+    return abs(round(1 - (suma/(distE1*distE2)),12))
 
 a = raw_input("Ingrese nombre archivo 1 aqui: ")
 b = raw_input("Ingrese nombre archivo 2 aqui: ")
