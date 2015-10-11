@@ -72,6 +72,7 @@ b = raw_input("Ingrese nombre archivo 2 aqui: ")
 archivo1 = open(a)
 pt1 = 0                               ##Numero del parrafo del texto 1
 distancias = []
+conflictos = []
 for parrafo in archivo1:
     if parrafo != "\n":               ##Comprueba que el parrafo no sea solo un salto de linea
         pt1 += 1                      ## Cada vez que pasa por este punto, cambia de parrafo y se le suma 1 al parrafo actual
@@ -85,6 +86,9 @@ for parrafo in archivo1:
                 dist1 = distEuclidiana(dic1, dic2)
                 dist2 = distCoseno(dic1, dic2)
                 distancias.append((pt1, pt2, dist1, dist2))
+                if dist1 == 0:
+                    conflictos.append((pt1,pt2))
+                    
 for i in distancias:
     print '-----------------'
     apt1, apt2, adist1, adist2 = i
