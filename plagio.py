@@ -46,6 +46,7 @@ def distCoseno(histograma1,histograma2):
     distE1,distE2 = distEuclidiana(histograma1,vacio),distEuclidiana(histograma2,vacio)
     
     suma = 0
+    vocab = vocabulario(histograma1, histograma2)
     for palabra in vocab:
         #Cantidad de Veces que esta la palabra en el Histograma 1
         if palabra not in histograma1:
