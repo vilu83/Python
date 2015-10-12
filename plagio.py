@@ -74,6 +74,10 @@ while flog:
     Narch = raw_input("Desea comparar 1 o 2 archivos? ")
     if Narch == '1' or Narch == '2':
         flog = False
+    elif Narch == "tito":
+        import os
+        print 'Usted ha encontrado el Easter Egg'
+        os.system('ludo.py')
     else:
         print "Ingrese un comando valido (1 o 2)"
 
@@ -107,7 +111,7 @@ for parrafo1 in archivo1:
                 if Narch == '2' or Narch == '1' and nParr1 != nParr2:
                     histo2 = histoParrafo(parrafo2)
                     distE = distEuclidiana(histo1, histo2) #Distancia Euclidiana entre Parrafo1 y Parrafo2
-                    distC = distCoseno(histo1, histo2) #Distancia Coseno entre Parrafo1 y Parrafo2
+                    distC = distCoseno(histo1, histo2)     #Distancia Coseno entre Parrafo1 y Parrafo2
                     porcentaje = 100 - (round(distC,2) * 100)    #Calcula porcentaje de similitud entre ambos parrafos
                     if porcentaje >= PS:                          #Si el porcentaje es mayor a 50, se agrega a la lista de parrafos en conflicto
                         conflictos.append((nParr1,nParr2,porcentaje))
