@@ -4,7 +4,12 @@ import matplotlib.pyplot as plt
 
 #Funcion que retorna un dic que contiene la frecuencia de cada palabra en el parrafo
 def histoParrafo(parrafo):
-    palabras = parrafo.strip().split()
+    #Eliminar Signos de Puntuacion
+    for punt in [',','.','#',';','$','%','&','\/','(',')','=','\"','\'']:
+        parrafo = parrafo.replace(punt,'')
+    #Convertir a Minuscula
+    palabras = parrafo.lower().strip().split()
+    #Crear Histograma
     histograma = {}
     for palabra in palabras:
         if palabra not in histograma.keys():
