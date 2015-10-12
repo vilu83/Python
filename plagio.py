@@ -69,8 +69,21 @@ def distCoseno(histograma1,histograma2):
     return abs(round(1 - (suma/(distE1*distE2)),12))
 
 histo01 = []
+flog = True
+while flog:
+    Narch = int(raw_input("Desea comparar 1 o 2 archivos? "))
+    if Narch == 1 or Narch == 2:
+        flog = False
+    else:
+        print "Ingrese un comando valido (1 o 2)"
+
 a = raw_input("Ingrese nombre archivo 1 aqui (Sin .txt): ")
-b = raw_input("Ingrese nombre archivo 2 aqui (Sin .txt): ")
+
+if Narch == 2:
+    b = raw_input("Ingrese nombre archivo 2 aqui (Sin .txt): ")
+else:
+    b = a
+
 archivo1 = open(a + '.txt')
 nParr1 = 0                               ##Permite saber que parrafo se esta revisando del Archivo 1
 conflictos = []
@@ -84,13 +97,14 @@ for parrafo1 in archivo1:
         for parrafo2 in archivo2:
             if parrafo2 != "\n":      ##Comprueba que el parrafo no sea solo un salto de linea
                 nParr2 += 1
-                histo2 = histoParrafo(parrafo2)
-                distE = distEuclidiana(histo1, histo2) #Distancia Euclidiana entre Parrafo1 y Parrafo2
-                distC = distCoseno(histo1, histo2) #Distancia Coseno entre Parrafo1 y Parrafo2
-                porcentaje = 100 - (round(distC,2) * 100)    #Calcula porcentaje de similitud entre ambos parrafos
-                if porcentaje > 50:                          #Si el porcentaje es mayor a 50, se agrega a la lista de parrafos en conflicto
-                    conflictos.append((nParr1,nParr2,porcentaje))
-                    porcentajes.append(porcentaje)
+                if Narch == 2 or Narch == 1 and nParr1 != nParr2:
+                    histo2 = histoParrafo(parrafo2)
+                    distE = distEuclidiana(histo1, histo2) #Distancia Euclidiana entre Parrafo1 y Parrafo2
+                    distC = distCoseno(histo1, histo2) #Distancia Coseno entre Parrafo1 y Parrafo2
+                    porcentaje = 100 - (round(distC,2) * 100)    #Calcula porcentaje de similitud entre ambos parrafos
+                    if porcentaje > 50:                          #Si el porcentaje es mayor a 50, se agrega a la lista de parrafos en conflicto
+                        conflictos.append((nParr1,nParr2,porcentaje))
+                        porcentajes.append(porcentaje)
     archivo2.close()
 archivo1.close()
 
