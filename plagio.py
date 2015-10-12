@@ -104,17 +104,20 @@ for parrafo1 in archivo1:
                 if porcentaje > 50:                          #Si el porcentaje es mayor a 50, se agrega a la lista de parrafos en conflicto
                     conflictos.append((nParr1,nParr2,porcentaje))
                     porcentajes.append(porcentaje)
+    archivo2.close()
+archivo1.close()
 
-print "Los parrafos en conflicto son:"
-for i in conflictos:
-    parra1, parra2, porcen = i
-    print "Los parrafos", str(parra1), "y", str(parra2), "con un", str(porcen),"% de similitud."
-
-#Grafica
 if len(porcentajes) > 1:
+    print "Los parrafos en conflicto son:"
+    for i in conflictos:
+        parra1, parra2, porcen = i
+        print "Los parrafos", str(parra1), "y", str(parra2), "con un", str(porcen),"% de similitud."
     plt.title("Frecuencia de porcentajes de similitud entre parrafos en conflicto")
     plt.grid(True)
     plt.hist(porcentajes)
     plt.xlabel("Porcentajes")
     plt.ylabel("Frecuencia")
     plt.show()
+else:
+    print "No hay parrafos en conflicto"
+    
