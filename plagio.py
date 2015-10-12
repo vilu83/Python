@@ -111,9 +111,10 @@ for i in conflictos:
     print "Los parrafos", str(parra1), "y", str(parra2), "con un", str(porcen),"% de similitud."
 
 #Grafica
-plt.title("Frecuencia de porcentajes de similitud entre parrafos en conflicto")
-plt.grid(True)
-plt.hist(porcentajes)
-plt.xlabel("Porcentajes")
-plt.ylabel("Frecuencia")
-plt.show()
+if len(porcentajes) > 1:
+    plt.title("Frecuencia de porcentajes de similitud entre parrafos en conflicto")
+    plt.grid(True)
+    plt.hist(porcentajes)
+    plt.xlabel("Porcentajes")
+    plt.ylabel("Frecuencia")
+    plt.show()
