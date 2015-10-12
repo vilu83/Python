@@ -47,17 +47,11 @@ def distEuclidiana(histograma1, histograma2):
         suma += (palabraR1 - palabraR2) ** 2
     return suma ** 0.5
 
-def deu0(hist):                                  ##Distancia euclidiana para un valor y 0
-    suma = 0
-    for valor in hist.values():
-        suma += valor**2
-    return suma**0.5
-
 #Funcion que calcula la distancia Coseno de dos Histogramas
 def distCoseno(histograma1,histograma2):
     #Guarda las distancias Euclidianas de ambos histogramas
-    distE1 = deu0(histograma1)
-    distE2 = deu0(histograma2)    
+    distE1 = distEuclidiana(histograma1,{})
+    distE2 = distEuclidiana(histograma2,{})
     suma = 0
     vocab = vocabulario(histograma1, histograma2)
     for palabra in vocab:
@@ -104,20 +98,17 @@ for parrafo1 in archivo1:
                 if porcentaje > 50:                          #Si el porcentaje es mayor a 50, se agrega a la lista de parrafos en conflicto
                     conflictos.append((nParr1,nParr2,porcentaje))
                     porcentajes.append(porcentaje)
-    archivo2.close()
-archivo1.close()
 
+print "Los parrafos en conflicto son:"
+for i in conflictos:
+    parra1, parra2, porcen = i
+    print "Los parrafos", str(parra1), "y", str(parra2), "con un", str(porcen),"% de similitud."
+
+#Grafica
 if len(porcentajes) > 1:
-    print "Los parrafos en conflicto son:"
-    for i in conflictos:
-        parra1, parra2, porcen = i
-        print "Los parrafos", str(parra1), "y", str(parra2), "con un", str(porcen),"% de similitud."
     plt.title("Frecuencia de porcentajes de similitud entre parrafos en conflicto")
     plt.grid(True)
     plt.hist(porcentajes)
     plt.xlabel("Porcentajes")
     plt.ylabel("Frecuencia")
     plt.show()
-else:
-    print "No hay parrafos en conflicto"
-    
