@@ -78,10 +78,10 @@ def distCoseno(histograma1,histograma2):
 histo01 = []
 flog = True
 while flog:
-    Narch = raw_input("Desea comparar 1 o 2 archivos? ")
+    Narch = raw_input("Desea comparar 1 o 2 archivos? ")    #Pregunta al usuario si desea comparar 1 o 2 archivos
     if Narch == '1' or Narch == '2':
         flog = False
-    elif Narch == "tito":
+    elif Narch == "tito":                                   #Easter Egg
         import os
         print 'Usted ha encontrado el Easter Egg'
         os.system('ludo.py')
@@ -90,13 +90,13 @@ while flog:
 
 a = raw_input("Ingrese nombre archivo 1 aqui (Sin .txt): ")
 
-if Narch == '2':
-    b = raw_input("Ingrese nombre archivo 2 aqui (Sin .txt): ")
+if Narch == '2':                                           
+    b = raw_input("Ingrese nombre archivo 2 aqui (Sin .txt): ") #Si se desea comparar dos archivos, pide el nombre del segundo archivo
 else:
-    b = a
+    b = a                                                       #Si se desea comparar un archivo, esta variable se iguala al nombre del archivo
 fleg = True
 while fleg:
-    PS = int(raw_input("Ingrese el porcentaje de similitud segun el cual considera que hay plagio (0 - 100): "))
+    PS = int(raw_input("Ingrese el porcentaje de similitud segun el cual considera que hay plagio (0 - 100): "))  #Pregunta al usuario el porcentaje de similitud minimo
     if PS > 100 or PS < 0:
         print "Ingrese un comando valido"
     else:
@@ -120,14 +120,14 @@ for parrafo1 in archivo1:
                     distE = distEuclidiana(histo1, histo2) #Distancia Euclidiana entre Parrafo1 y Parrafo2
                     distC = distCoseno(histo1, histo2)     #Distancia Coseno entre Parrafo1 y Parrafo2
                     porcentaje = 100 - (round(distC,2) * 100)    #Calcula porcentaje de similitud entre ambos parrafos
-                    if porcentaje >= PS:                          #Si el porcentaje es mayor a 50, se agrega a la lista de parrafos en conflicto
+                    if porcentaje >= PS:                          #Si el porcentaje es mayor al valor dado por el usuario, se agrega a la lista de parrafos en conflicto
                         conflictos.append((nParr1,nParr2,porcentaje))
                         porcentajes.append(porcentaje)
     archivo2.close()
 archivo1.close()
 
 if len(porcentajes) > 1:
-    print "Los parrafos en conflicto son:"
+    print "Los parrafos en conflicto son:"                    #Imprime todos los parrafos en conflicto
     for i in conflictos:
         parra1, parra2, porcen = i
         print "Los parrafos", str(parra1), "y", str(parra2), "con un", str(porcen),"% de similitud."
@@ -145,4 +145,4 @@ if len(porcentajes) > 1:
         plt.ylabel("Frecuencia")
         plt.show()
 else:
-    print "No hay parrafos en conflicto"
+    print "No hay parrafos en conflicto"    
