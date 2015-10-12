@@ -106,10 +106,12 @@ for i in conflictos:
 print histo01
 
 #Grafica
-tablaC = np.array([[1,2,3],[3,4,5],[5,6,6]])
-tablaE = np.array([[1,2],[3,4],[5,6]])
-print tablaC
+#tablaC = np.array([[1,2,3],[3,4,5],[5,6,6]])
+#tablaE = np.array([[1,2],[3,4],[5,6]])
+#print tablaC
 plt.title("Frecuencia de porcentajes de similitud entre parrafos")
 plt.grid(True)
-plt.plot(tablaC)
+plt.hist(porcentajes)
+plt.xlabel("Porcentajes")
+plt.ylabel("Frecuencia")
 plt.show()
