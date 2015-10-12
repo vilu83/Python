@@ -70,9 +70,9 @@ def distCoseno(histograma1,histograma2):
     return abs(round(1 - (suma/(distE1*distE2)),12))
 
 histo01 = []
-a = raw_input("Ingrese nombre archivo 1 aqui: ")
-b = raw_input("Ingrese nombre archivo 2 aqui: ")
-archivo1 = open(a)
+a = raw_input("Ingrese nombre archivo 1 aqui (Sin .txt): ")
+b = raw_input("Ingrese nombre archivo 2 aqui (Sin .txt): ")
+archivo1 = open(a + '.txt')
 nParr1 = 0                               ##Permite saber que parrafo se esta revisando del Archivo 1
 distanciasE = {}
 distanciasC = {}
@@ -84,7 +84,7 @@ for parrafo1 in archivo1:
     if parrafo1 != "\n":               ##Comprueba que el parrafo no sea solo un salto de linea
         nParr1 += 1
         histo1 = histoParrafo(parrafo1)
-        archivo2 = open(b)
+        archivo2 = open(b + '.txt')
         nParr2 = 0                       ##Permite saber que parrafo se esta revisando del Archivo 1
         for parrafo2 in archivo2:
             if parrafo2 != "\n":      ##Comprueba que el parrafo no sea solo un salto de linea
