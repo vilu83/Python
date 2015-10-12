@@ -100,21 +100,18 @@ for parrafo1 in archivo1:
                 distanciasE[(nParr1,nParr2)] = distE
                 distanciasC[(nParr1,nParr2)] = distC
                 porcentaje = 100 - (round(distC,2) * 100)    #Calcula porcentaje de similitud entre ambos parrafos
-                porcentajes.append(porcentaje)
+                
                 if porcentaje > 50:                          #Si el porcentaje es mayor a 50, se agrega a la lista de parrafos en conflicto
                     conflictos.append((nParr1,nParr2,porcentaje))
+                    porcentajes.append(porcentaje)
 
 print "Los parrafos en conflicto son:"
 for i in conflictos:
     parra1, parra2, porcen = i
     print "Los parrafos", str(parra1), "y", str(parra2), "con un", str(porcen),"% de similitud."
-print histo01
 
 #Grafica
-#tablaC = np.array([[1,2,3],[3,4,5],[5,6,6]])
-#tablaE = np.array([[1,2],[3,4],[5,6]])
-#print tablaC
-plt.title("Frecuencia de porcentajes de similitud entre parrafos")
+plt.title("Frecuencia de porcentajes de similitud entre parrafos en conflicto")
 plt.grid(True)
 plt.hist(porcentajes)
 plt.xlabel("Porcentajes")
