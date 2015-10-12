@@ -7,9 +7,9 @@ def histoParrafo(parrafo):
     #Eliminar Signos de Puntuacion
     for punt in [',','.','#',';','$','%','&','\/','(',')','=','\"','\'']:
         parrafo = parrafo.replace(punt,'')
-    #Convertir a Minuscula
+    #Convertir a Minuscula, eliminar \n y volver una lista el parrafo
     palabras = parrafo.lower().strip().split()
-    #Crear Histograma
+    #Crear Histograma en un diccionario
     histograma = {}
     for palabra in palabras:
         if palabra not in histograma.keys():
@@ -73,11 +73,7 @@ a = raw_input("Ingrese nombre archivo 1 aqui (Sin .txt): ")
 b = raw_input("Ingrese nombre archivo 2 aqui (Sin .txt): ")
 archivo1 = open(a + '.txt')
 nParr1 = 0                               ##Permite saber que parrafo se esta revisando del Archivo 1
-distanciasE = {}
-distanciasC = {}
 conflictos = []
-Euclid = np.array([])
-Coseno = np.array([])
 porcentajes = []
 for parrafo1 in archivo1:
     if parrafo1 != "\n":               ##Comprueba que el parrafo no sea solo un salto de linea
@@ -91,10 +87,7 @@ for parrafo1 in archivo1:
                 histo2 = histoParrafo(parrafo2)
                 distE = distEuclidiana(histo1, histo2) #Distancia Euclidiana entre Parrafo1 y Parrafo2
                 distC = distCoseno(histo1, histo2) #Distancia Coseno entre Parrafo1 y Parrafo2
-                distanciasE[(nParr1,nParr2)] = distE
-                distanciasC[(nParr1,nParr2)] = distC
                 porcentaje = 100 - (round(distC,2) * 100)    #Calcula porcentaje de similitud entre ambos parrafos
-                
                 if porcentaje > 50:                          #Si el porcentaje es mayor a 50, se agrega a la lista de parrafos en conflicto
                     conflictos.append((nParr1,nParr2,porcentaje))
                     porcentajes.append(porcentaje)
