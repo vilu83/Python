@@ -2,6 +2,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+menu = {
+    's':True,
+    'S':True,
+    'n':False,
+    'N':False,
+    }
+
 #Funcion que retorna un dic que contiene la frecuencia de cada palabra en el parrafo
 def histoParrafo(parrafo):
     #Eliminar Signos de Puntuacion
@@ -124,11 +131,18 @@ if len(porcentajes) > 1:
     for i in conflictos:
         parra1, parra2, porcen = i
         print "Los parrafos", str(parra1), "y", str(parra2), "con un", str(porcen),"% de similitud."
-    plt.title("Frecuencia de porcentajes de similitud entre parrafos en conflicto")
-    plt.grid(True)
-    plt.hist(porcentajes)
-    plt.xlabel("Porcentajes")
-    plt.ylabel("Frecuencia")
-    plt.show()
+    #Mostrar Grafico de Parrafos en Conflicto
+    flog = True
+    while flog:
+        eleccion = raw_input("Desea Imprimir el Histograma de los Parrafos en Conflicto? (S/N): ")
+        if eleccion in menu.keys():
+            flog = not menu[eleccion]
+    if menu[eleccion]:
+        plt.title("Frecuencia de porcentajes de similitud entre parrafos en conflicto")
+        plt.grid(True)
+        plt.hist(porcentajes)
+        plt.xlabel("Porcentajes")
+        plt.ylabel("Frecuencia")
+        plt.show()
 else:
     print "No hay parrafos en conflicto"
