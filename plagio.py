@@ -1,18 +1,15 @@
-#Importar funciones para Graficar
-import numpy as np
-import matplotlib.pyplot as plt
+# -*- coding: cp1252 -*-
+#Juan Pablo San Martin
+#Patricio Campaña
+#Tomas Cantuarias
 
-menu = {
-    's':True,
-    'S':True,
-    'n':False,
-    'N':False,
-    }
+#Importar funciones para Graficar
+import matplotlib.pyplot as plt
 
 #Funcion que retorna un dic que contiene la frecuencia de cada palabra en el parrafo
 def histoParrafo(parrafo):
     #Eliminar Signos de Puntuacion
-    for punt in [',','.','#',';','$','%','&','\/','(',')','=','\"','\'']:
+    for punt in [',','.','#',';','$','%','&','\/','(',')','=','\"','\'',':']:
         parrafo = parrafo.replace(punt,'')
     #Convertir a Minuscula, eliminar \n y volver una lista el parrafo
     palabras = parrafo.lower().strip().split()
@@ -20,9 +17,7 @@ def histoParrafo(parrafo):
     histograma = {}
     for palabra in palabras:
         if palabra not in histograma.keys():
-            histograma[palabra] = palabras.count(palabra)
-            tpl = (palabra, histograma[palabra])
-            histo01.append(tpl)
+            histograma[palabra] = palabras.count(palabra)           
     return histograma
 
 #Retorna un conjunto con todas las palabras de ambos parrafos y completa los histogramas con las palabras que no aparecen en los parrafos
@@ -75,13 +70,20 @@ def distCoseno(histograma1,histograma2):
         suma += palabraR1 * palabraR2
     return abs(round(1 - (suma/(distE1*distE2)),12))
 
+menu = {
+    's':True,
+    'S':True,
+    'n':False,
+    'N':False,
+    }
+
 histo01 = []
 flog = True
 while flog:
     Narch = raw_input("Desea comparar 1 o 2 archivos? ")    #Pregunta al usuario si desea comparar 1 o 2 archivos
     if Narch == '1' or Narch == '2':
         flog = False
-    elif Narch == "tito":                                   #Easter Egg
+    elif Narch == "tito":                                   #???
         import os
         print 'Usted ha encontrado el Easter Egg'
         os.system('ludo.py')
@@ -103,46 +105,53 @@ while fleg:
         fleg = False
     
 archivo1 = open(a + '.txt')
-nParr1 = 0                               ##Permite saber que parrafo se esta revisando del Archivo 1
+nParr1 = 0                                              ##Permite saber que parrafo se esta revisando del Archivo 1
 conflictos = []
 porcentajes = []
+revisado = []
 for parrafo1 in archivo1:
-    if parrafo1 != "\n":               ##Comprueba que el parrafo no sea solo un salto de linea
-        nParr1 += 1
+    if parrafo1 != "\n":                                ##Comprueba que el parrafo no sea solo un salto de linea
+        nParr1 += 1     
         histo1 = histoParrafo(parrafo1)
         archivo2 = open(b + '.txt')
-        nParr2 = 0                       ##Permite saber que parrafo se esta revisando del Archivo 1
+        nParr2 = 0                                      ##Permite saber que parrafo se esta revisando del Archivo 1
         for parrafo2 in archivo2:
-            if parrafo2 != "\n":      ##Comprueba que el parrafo no sea solo un salto de linea
+            if parrafo2 != "\n":                        ##Comprueba que el parrafo no sea solo un salto de linea
                 nParr2 += 1
-                if Narch == '2' or Narch == '1' and nParr1 != nParr2:
-                    histo2 = histoParrafo(parrafo2)
-                    distE = distEuclidiana(histo1, histo2) #Distancia Euclidiana entre Parrafo1 y Parrafo2
-                    distC = distCoseno(histo1, histo2)     #Distancia Coseno entre Parrafo1 y Parrafo2
-                    porcentaje = 100 - (round(distC,2) * 100)    #Calcula porcentaje de similitud entre ambos parrafos
-                    if porcentaje >= PS:                          #Si el porcentaje es mayor al valor dado por el usuario, se agrega a la lista de parrafos en conflicto
-                        conflictos.append((nParr1,nParr2,porcentaje))
-                        porcentajes.append(porcentaje)
+                if nParr2 not in revisado:
+                    if Narch == '2' or Narch == '1' and nParr1 != nParr2:
+                        histo2 = histoParrafo(parrafo2)
+                        distE = distEuclidiana(histo1, histo2)          #Distancia Euclidiana entre Parrafo1 y Parrafo2
+                        distC = distCoseno(histo1, histo2)              #Distancia Coseno entre Parrafo1 y Parrafo2
+                        porcentaje = 100 - (round(distC,2) * 100)       #Calcula porcentaje de similitud entre ambos parrafos
+                        if porcentaje >= PS:                            #Si el porcentaje es mayor al valor dado por el usuario, se agrega a la lista de parrafos en conflicto
+                            conflictos.append((nParr1,nParr2,porcentaje))
+                            porcentajes.append(porcentaje)
     archivo2.close()
+    if Narch == '1':
+        revisado.append(nParr1)
 archivo1.close()
 
-if len(porcentajes) > 1:
+if len(porcentajes) >= 1:
     print "Los parrafos en conflicto son:"                    #Imprime todos los parrafos en conflicto
     for i in conflictos:
         parra1, parra2, porcen = i
         print "Los parrafos", str(parra1), "y", str(parra2), "con un", str(porcen),"% de similitud."
     #Mostrar Grafico de Parrafos en Conflicto
     flog = True
-    while flog:
-        eleccion = raw_input("Desea Imprimir el Histograma de los Parrafos en Conflicto? (S/N): ")
-        if eleccion in menu.keys():
-            flog = not menu[eleccion]
-    if menu[eleccion]:
-        plt.title("Frecuencia de porcentajes de similitud entre parrafos en conflicto")
-        plt.grid(True)
-        plt.hist(porcentajes)
-        plt.xlabel("Porcentajes")
-        plt.ylabel("Frecuencia")
-        plt.show()
+    if len(porcentajes) > 1:
+        while flog:
+            eleccion = raw_input("Desea Imprimir el Histograma de los Parrafos en Conflicto? (S/N): ")
+            if eleccion in menu.keys():
+                flog = False
+        if menu[eleccion]:
+            plt.title("Frecuencia de porcentajes de similitud entre parrafos en conflicto")
+            plt.grid(True)
+            plt.hist(porcentajes)
+            plt.xlabel("Porcentajes")
+            plt.ylabel("Frecuencia")
+            plt.show()
+    else:
+        print "No se puede producir histograma con solo un conflicto"
 else:
     print "No hay parrafos en conflicto"    
