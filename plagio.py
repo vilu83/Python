@@ -1,10 +1,11 @@
 # -*- coding: cp1252 -*-
 #Juan Pablo San Martin
-#Patricio Campaña
+#Patricio CampaÃ±a
 #Tomas Cantuarias
 
-#Importar funciones para Graficar
+#Importar funciones para Graficar y revisar archivos
 import matplotlib.pyplot as plt
+import os
 
 #Funcion que retorna un dic que contiene la frecuencia de cada palabra en el parrafo
 def histoParrafo(parrafo):
@@ -77,23 +78,33 @@ menu = {
     'N':False,
     }
 
-histo01 = []
 flog = True
 while flog:
     Narch = raw_input("Desea comparar 1 o 2 archivos? ")    #Pregunta al usuario si desea comparar 1 o 2 archivos
     if Narch == '1' or Narch == '2':
         flog = False
     elif Narch == "tito":                                   #???
-        import os
         print 'Usted ha encontrado el Easter Egg'
         os.system('ludo.py')
     else:
         print "Ingrese un comando valido (1 o 2)"
 
-a = raw_input("Ingrese nombre archivo 1 aqui (Sin .txt): ")
+flog = True
+while flog:
+    a = raw_input("Ingrese nombre archivo 1 aqui (Sin .txt): ")
+    if os.path.isfile(a + '.txt'):
+        flog = False
+    else:
+        print a + '.txt No Existe en este directorio'
 
-if Narch == '2':                                           
-    b = raw_input("Ingrese nombre archivo 2 aqui (Sin .txt): ") #Si se desea comparar dos archivos, pide el nombre del segundo archivo
+if Narch == '2':
+    flog = True
+    while flog:
+        b = raw_input("Ingrese nombre archivo 2 aqui (Sin .txt): ") #Si se desea comparar dos archivos, pide el nombre del segundo archivo
+        if os.path.isfile(b + '.txt'):
+            flog = False
+        else:
+            print b + '.txt No Existe en este directorio'    
 else:
     b = a                                                       #Si se desea comparar un archivo, esta variable se iguala al nombre del archivo
 fleg = True
@@ -145,6 +156,8 @@ if len(porcentajes) >= 1:
             eleccion = raw_input("Desea Imprimir el Histograma de los Parrafos en Conflicto? (S/N): ")
             if eleccion in menu.keys():
                 flog = False
+            else:
+                print "Ingrese solo 'S' o 'N'"
         if menu[eleccion]:
             plt.title("Frecuencia de porcentajes de similitud entre parrafos en conflicto")
             plt.grid(True)
