@@ -98,12 +98,13 @@ else:
     b = a                                                       #Si se desea comparar un archivo, esta variable se iguala al nombre del archivo
 fleg = True
 while fleg:
-    PS = int(raw_input("Ingrese el porcentaje de similitud segun el cual considera que hay plagio (0 - 100): "))  #Pregunta al usuario el porcentaje de similitud minimo
-    if PS > 100 or PS < 0:
+    PS = raw_input("Ingrese el porcentaje de similitud segun el cual considera que hay plagio (0 - 100): ")  #Pregunta al usuario el porcentaje de similitud minimo
+    if PS not in str(range(0,100)) or PS == "":
         print "Ingrese un comando valido"
     else:
         fleg = False
-    
+        PS = int(PS)
+           
 archivo1 = open(a + '.txt')
 nParr1 = 0                                              ##Permite saber que parrafo se esta revisando del Archivo 1
 conflictos = []
