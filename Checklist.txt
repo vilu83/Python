@@ -1,0 +1,1 @@
+- Crear función (usuario,libro) que retorne el rating que le ha dado "usuario" a "libro".
