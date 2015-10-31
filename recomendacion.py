@@ -9,13 +9,13 @@
 #Dicc --> polio = {} --> polio[User-ID] = [(ISBN,Book-Rating),...
 
 def LibrosUsuario(usuario):
+    usu = {}                      #Diccionario del usuario 1 donde el libro es la llave y el rating el valor
+    libros = set()               #Conjunto vacio que va a contener los libros que ha calificado el usuario
     for tupla in ratings[usuario]:    #Diccionario donde el usuario es la llave y los valores son una lista de tuplas, con tuplas de la forma (Libro, Rating) 
-        usu = {}                      #Diccionario del usuario 1 donde el libro es la llave y el rating el valor
-        libros = set()               #Conjunto vacio que va a contener los libros que ha calificado el usuario
         libro, rating = tupla
         if rating > 0:                #Ignora los libros cuyos rating sean 0
             libros.add(libro)         #Agrega el libro al conjunto de los libros que ha calificado el usuario 
-            usu[libro] = rating       #Agrega el libro como llave y el rating como valor al diccionario del usuario    
+            usu[libro] = rating       #Agrega el libro como llave y el rating como valor al diccionario del usuario
     return libros, usu
 
 def correlacion(usuario1, usurero):
