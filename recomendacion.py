@@ -68,7 +68,7 @@ def ordenar(diccionario):
 	orden = diccionario.keys()
 	for elemento in orden:
 		for i in range(len(orden)-1):
-			if diccionario[orden[i]] > diccionario[orden[i+1]]:
+			if diccionario[orden[i]] < diccionario[orden[i+1]]:
 				aux = orden[i]
 				orden[i] = orden[i+1]
 				orden[i+1] = aux
@@ -108,3 +108,15 @@ userID = raw_input("Ingrese el ID del Usuario al cual recomendarle libros: ")
 k = int(raw_input("Ingrese cuantos libros desea recomendar: "))
 
 ## Codigo Principal ##
+
+topk = topLibros(userID)[:k]
+allBooks, bookData = allBookData()
+print "Te Recomendamos los siguientes libros:"
+recomendacion = "{0}. {1} de {2} del anno {3}, publicado por {4}
+for indLibroR in range(len(topk)):
+	topk[indLibroR] = isbn
+	nombre, autor, anno, editorial = bookData[isbn]
+	print recomendacion.format(indLibroR, nombre, autor, anno, editorial)
+
+print 'Gracias por usar este programa ^.^'
+	
