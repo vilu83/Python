@@ -42,10 +42,11 @@ def estimacion_rating (usuarioA, libro):
     r_parcial2 = 0
     for usr in ratings.keys():  #se itera sobre cada usuario
         if usr != usuarioA:
-            for book in ratings[usr]:
+            for book in ratings[usr]:                
                 if libro == book[0]:
                     r_parcial1 += (float(correlacion(usuarioA, usr)*ratings[usr][1]))
-                    r_parcial2 += (float(abs(correlacion(usuarioA,usr))))
+                    r_parcial2 += (float(abs(correlacion(usuarioA,usr))))           
+                                       
     resultado = (r_parcial1/r_parcial2)
     return resultado
 
@@ -55,8 +56,9 @@ def allBooksData():                                            #Retorna Conjunto
     dataLibros = {}
     pLinea = True                                           #Ignorar primera linea del csv
     for lineaLibro in librosF:
-        if not pLinea:
-            dataLibro = lineaLibro.strip().split(';')
+        lineaLibro = lineaLibro.replace('"','')        
+        if not pLinea:            
+            dataLibro = lineaLibro.strip().split(';')            
             libros.add(dataLibro[0])
             dataLibros[dataLibro[0]] = (dataLibro[1],dataLibro[2],dataLibro[3],dataLibro[4])
         pLinea = False
@@ -99,8 +101,8 @@ for linea in archivoratings:                                #Recorre el archivo 
             ratings[usuario]=[(libro,int(rating))]          #utiliza el usuario como llave y el valor es una lista de tuplas, con las tuplas de forma (Libro, Rating)
         else:                                               #Si el usuario si esta en el diccionario de ratings,
             ratings[usuario].append((libro,int(rating)))    #agrega una nueva tupla de la misma forma a la lista
-        if numerolinea > 500:
-            break
+        #if numerolinea > 100000:
+         #   break
 archivoratings.close()
 
 ## Ingreso de Usuario ##
@@ -120,4 +122,3 @@ for indLibroR in range(len(topk)):
     print recomendacion.format(indLibroR, nombre, autor, anno, editorial)
 
 print 'Gracias por usar este programa ^.^'
-	
