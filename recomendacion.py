@@ -34,7 +34,20 @@ def correlacion(usuario1, usurero):
     Correlacion = Sumatoria1 / ((Sumatoria2)**0.5 * (Sumatoria3)**0.5)                #Se aplica la formula de correlacion
     return Correlacion                                                                #Retorna el resultado de la formula                         #Retorna el resultado de la formula
         
-        
+def estimacion_rating (usuarioA, libro):
+#Rating Diccionario[Usuario] = [(Libro, Rating),...]
+#sumatioria de correlacion(entre usuarioA y usuarioB)*rating(usiarioA,para ese libro)
+#todo dividido por sumato del valor absoluto de la correlacion entre ua y usuario i
+	r_parcial1 = 0
+	r_parcial2 = 0
+	for usr in ratings.keys():	#se itera sobre cada usuario
+		if usr != usuarioA:
+			for book in rating[usr]:
+				if libro == book[0]:
+					r_parcial1 += (float(correlacion(usuarioA, usr)*ratings[usr][1]))
+					r_parcial2 += (float(abs(correlacion(usuarioA,usr))))
+	resultado = (r_parcial1/r_parcial2)
+	return resultado
 
 archivoratings=open("BX-Book-Ratings.csv")                  #Abre el archivo especificado
 ratings = {}                                                #Crea un diccionario vacío que será de la forma Diccionario[Usuario] = [(Libro, Rating),...]. Esto es para no tener que recorrer el archivo de texto mas de una vez.
