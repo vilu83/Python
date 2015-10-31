@@ -8,16 +8,6 @@
 
 #Dicc --> polio = {} --> polio[User-ID] = [(ISBN,Book-Rating),...
 
-#Juan Pablo San Martin
-#Patricio Campana
-#Tomas Cantuarias
-
-#BX-Book-Ratings.csv --> "User-ID";"ISBN";"Book-Rating"
-#BX-Users.csv -->"User-ID";"Location";"Age"
-#BX-Books.csv -->"ISBN";"Book-Title";"Book-Author";"Year-Of-Publication";"Publisher";"Image-URL-S";"Image-URL-M";"Image-URL-L"
-
-#Dicc --> polio = {} --> polio[User-ID] = [(ISBN,Book-Rating),...
-
 def correlacion(usuario1, usurero):
     libros1 = set()  #Conjunto vacio que va a contener los libros que ha calificado el usuario 1
     libros2= set()   #Conjunto vacio que va a contener los libros que ha calificado el usuraio 2
