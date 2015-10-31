@@ -38,16 +38,16 @@ def estimacion_rating (usuarioA, libro):
 #Rating Diccionario[Usuario] = [(Libro, Rating),...]
 #sumatioria de correlacion(entre usuarioA y usuarioB)*rating(usiarioA,para ese libro)
 #todo dividido por sumato del valor absoluto de la correlacion entre ua y usuario i
-	r_parcial1 = 0
-	r_parcial2 = 0
-	for usr in ratings.keys():	#se itera sobre cada usuario
-		if usr != usuarioA:
-			for book in rating[usr]:
-				if libro == book[0]:
-					r_parcial1 += (float(correlacion(usuarioA, usr)*ratings[usr][1]))
-					r_parcial2 += (float(abs(correlacion(usuarioA,usr))))
-	resultado = (r_parcial1/r_parcial2)
-	return resultado
+    r_parcial1 = 0
+    r_parcial2 = 0
+    for usr in ratings.keys():  #se itera sobre cada usuario
+        if usr != usuarioA:
+            for book in rating[usr]:
+                if libro == book[0]:
+                    r_parcial1 += (float(correlacion(usuarioA, usr)*ratings[usr][1]))
+                    r_parcial2 += (float(abs(correlacion(usuarioA,usr))))
+    resultado = (r_parcial1/r_parcial2)
+    return resultado
 
 def allBooksData():                                            #Retorna Conjunto el ISBN todos los Libros Registrados y un diccionario de forma {ISBN: ("Nombre","Autor","Anno de Publicacion","Editorial"}
     librosF = open("BX-Books.csv")
@@ -56,7 +56,7 @@ def allBooksData():                                            #Retorna Conjunto
     pLinea = True                                           #Ignorar primera linea del csv
     for lineaLibro in librosF:
         if not pLinea:
-            dataLibro = dataLibro.strip().split(';')
+            dataLibro = lineaLibro.strip().split(';')
             libros.add(dataLibro[0])
             dataLibros[dataLibro[0]] = (dataLibro[1],dataLibro[2],dataLibro[3],dataLibro[4])
         pLinea = False
@@ -65,28 +65,28 @@ def allBooksData():                                            #Retorna Conjunto
 
 #Retorna una lista con las llaves del diccionario ordenadas segun su valor de menor a mayor mediante el Bubble Sort
 def ordenar(diccionario):
-	orden = diccionario.keys()
-	for elemento in orden:
-		for i in range(len(orden)-1):
-			if diccionario[orden[i]] < diccionario[orden[i+1]]:
-				aux = orden[i]
-				orden[i] = orden[i+1]
-				orden[i+1] = aux
-	return orden
+    orden = diccionario.keys()
+    for elemento in orden:
+        for i in range(len(orden)-1):
+            if diccionario[orden[i]] < diccionario[orden[i+1]]:
+                aux = orden[i]
+                orden[i] = orden[i+1]
+                orden[i+1] = aux
+    return orden
 
 def topLibros(usuario):
-  	allBooks, dataBooks = allBooksData()
-   	librosNoLeidos = allBooks - LibrosUsuario(usuario)
-    	ratingEstimadoLibros = {}                            #Diccionario de la forma {isbn:ratingEstimado}
-    	for book in librosNoLeidos:
-	    	ratingEstimadoLibros[book] = estimacion_rating(usuario,book)
-    	top = ordenar(ratingEstimadoLibros)
-    	return top
+    allBooks, dataBooks = allBooksData()
+    librosNoLeidos = allBooks - LibrosUsuario(usuario)
+    ratingEstimadoLibros = {}                            #Diccionario de la forma {isbn:ratingEstimado}
+    for book in librosNoLeidos:
+        ratingEstimadoLibros[book] = estimacion_rating(usuario,book)
+        top = ordenar(ratingEstimadoLibros)
+    return top
 
 ## Crear Diccionario que tenga los datos del archivo BX-Book_Ratings.csv ##
 
 archivoratings=open("BX-Book-Ratings.csv")                  #Abre el archivo especificado
-ratings = {}                                                #Crea un diccionario vacío que será de la forma Diccionario[Usuario] = [(Libro, Rating),...]. Esto es para no tener que recorrer el archivo de texto mas de una vez.
+ratings = {}                                                #Crea un diccionario vacio que sera de la forma Diccionario[Usuario] = [(Libro, Rating),...]. Esto es para no tener que recorrer el archivo de texto mas de una vez.
 numerolinea = 0                                             #Contador de lineas
 for linea in archivoratings:                                #Recorre el archivo por lineas
     numerolinea += 1                                        #Suma 1 al contador de lineas
@@ -112,11 +112,11 @@ k = int(raw_input("Ingrese cuantos libros desea recomendar: "))
 topk = topLibros(userID)[:k]
 allBooks, bookData = allBookData()
 print "Te Recomendamos los siguientes libros:"
-recomendacion = "{0}. {1} de {2} del anno {3}, publicado por {4}
+recomendacion = "{0}. {1} de {2} del anno {3}, publicado por {4}"
 for indLibroR in range(len(topk)):
-	topk[indLibroR] = isbn
-	nombre, autor, anno, editorial = bookData[isbn]
-	print recomendacion.format(indLibroR, nombre, autor, anno, editorial)
+    topk[indLibroR] = isbn
+    nombre, autor, anno, editorial = bookData[isbn]
+    print recomendacion.format(indLibroR, nombre, autor, anno, editorial)
 
 print 'Gracias por usar este programa ^.^'
 	
