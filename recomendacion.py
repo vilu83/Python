@@ -27,6 +27,8 @@ def correlacion(usuario1, usurero):
     Sumatoria1 = 0                                            #Sumatoria de la formula de correlacion. Corresponde a la sumatoria que esta por sobre la fraccion
     Sumatoria2 = 0                                            #Sumatoria de la formula de correlacion. Corresponde a la sumatoria que esta a la izquierda, debajo de la fraccion
     Sumatoria3 = 0                                            #Sumatoria de la formula de correlacion. Corresponde a la sumatoria que esta a la derecha, debajo de la fraccion
+    print usuario1, usurero
+    print usu1, usu2
     for libro in InterLibros:                                 #Recorre el conjunto intersectado
         Sumatoria1 += (usu1[libro] - MediaUsu1) * (usu2[libro] - MediaUsu2)           #Se aplica la formula de correlacion
         Sumatoria2 += (usu1[libro] - MediaUsu1)**2                                    #Se aplica la formula de correlacion
@@ -41,12 +43,13 @@ def estimacion_rating (usuarioA, libro):
     r_parcial1 = 0
     r_parcial2 = 0
     for usr in ratings.keys():  #se itera sobre cada usuario
-        if usr != usuarioA:
+        librosA, A = LibrosUsuario(usuarioA)
+        librosusr, u = LibrosUsuario(usr)
+        if usr != usuarioA and len(librosA & librosusr) > 0:
             for book in ratings[usr]:                
                 if libro == book[0]:
                     r_parcial1 += (float(correlacion(usuarioA, usr)*ratings[usr][1]))
                     r_parcial2 += (float(abs(correlacion(usuarioA,usr))))           
-                                       
     resultado = (r_parcial1/r_parcial2)
     return resultado
 
@@ -88,6 +91,7 @@ def topLibros(usuario):
 
 ## Crear Diccionario que tenga los datos del archivo BX-Book_Ratings.csv ##
 
+print 'Cargando Base de Datos...'
 archivoratings=open("BX-Book-Ratings.csv")                  #Abre el archivo especificado
 ratings = {}                                                #Crea un diccionario vacio que sera de la forma Diccionario[Usuario] = [(Libro, Rating),...]. Esto es para no tener que recorrer el archivo de texto mas de una vez.
 numerolinea = 0                                             #Contador de lineas
