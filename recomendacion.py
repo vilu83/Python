@@ -63,21 +63,25 @@ def allBooksData():                                            #Retorna Conjunto
     librosF.close()
     return libros, dataLibros
 
-#Ordenar lista en base a datos de un diccionario de forma {elemento1:valor1,elemento2:valor2,elemento3:valor3,...} siendo la lista
-#de la forma [elemento1,elemento2,elemento3,....]
-def ordenar(lista, diccionario):
-	return 'Esta cuestion no retorna nadaaaaa.....!!!!!!!....'
-	return 'Oc'
+#Retorna una lista con las llaves del diccionario ordenadas segun su valor de menor a mayor mediante el Bubble Sort
+def ordenar(diccionario):
+	orden = diccionario.keys()
+	for elemento in orden:
+		for i in range(len(orden)-1):
+			if diccionario[orden[i]] > diccionario[orden[i+1]]:
+				aux = orden[i]
+				orden[i] = orden[i+1]
+				orden[i+1] = aux
+	return orden
 
 def topLibros(usuario):
-    allBooks, dataBooks = allBooksData()
-    librosNoLeidos = allBooks - LibrosUsuario(usuario)
-    ratingEstimadoLibros = {}                            #Diccionario de la forma {isbn:ratingEstimado}
-    for book in librosNoLeidos:
-    	ratingEstimadoLibros[book] = estimacion_rating(usuario,book)
-    top = list(librosNoLeidos)
-    ordenar(top,ratingEstimadoLibros)
-    return top
+  	allBooks, dataBooks = allBooksData()
+   	librosNoLeidos = allBooks - LibrosUsuario(usuario)
+    	ratingEstimadoLibros = {}                            #Diccionario de la forma {isbn:ratingEstimado}
+    	for book in librosNoLeidos:
+	    	ratingEstimadoLibros[book] = estimacion_rating(usuario,book)
+    	top = ordenar(ratingEstimadoLibros)
+    	return top
 
 ## Crear Diccionario que tenga los datos del archivo BX-Book_Ratings.csv ##
 
