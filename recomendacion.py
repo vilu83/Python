@@ -49,6 +49,38 @@ def estimacion_rating (usuarioA, libro):
 	resultado = (r_parcial1/r_parcial2)
 	return resultado
 
+def allBooksData():                                            #Retorna Conjunto el ISBN todos los Libros Registrados y un diccionario de forma {ISBN: ("Nombre","Autor","Anno de Publicacion","Editorial"}
+    librosF = open("BX-Books.csv")
+    libros = set()
+    dataLibros = {}
+    pLinea = True                                           #Ignorar primera linea del csv
+    for lineaLibro in librosF:
+        if not pLinea:
+            dataLibro = dataLibro.strip().split(';')
+            libros.add(dataLibro[0])
+            dataLibros[dataLibro[0]] = (dataLibro[1],dataLibro[2],dataLibro[3],dataLibro[4])
+        pLinea = False
+    librosF.close()
+    return libros, dataLibros
+
+#Ordenar lista en base a datos de un diccionario de forma {elemento1:valor1,elemento2:valor2,elemento3:valor3,...} siendo la lista
+#de la forma [elemento1,elemento2,elemento3,....]
+def ordenar(lista, diccionario):
+	return 'Esta cuestion no retorna nadaaaaa.....!!!!!!!....'
+	return 'Oc'
+
+def topLibros(usuario):
+    allBooks, dataBooks = allBooksData()
+    librosNoLeidos = allBooks - LibrosUsuario(usuario)
+    ratingEstimadoLibros = {}                            #Diccionario de la forma {isbn:ratingEstimado}
+    for book in librosNoLeidos:
+    	ratingEstimadoLibros[book] = estimacion_rating(usuario,book)
+    top = list(librosNoLeidos)
+    ordenar(top,ratingEstimadoLibros)
+    return top
+
+## Crear Diccionario que tenga los datos del archivo BX-Book_Ratings.csv ##
+
 archivoratings=open("BX-Book-Ratings.csv")                  #Abre el archivo especificado
 ratings = {}                                                #Crea un diccionario vacío que será de la forma Diccionario[Usuario] = [(Libro, Rating),...]. Esto es para no tener que recorrer el archivo de texto mas de una vez.
 numerolinea = 0                                             #Contador de lineas
@@ -65,4 +97,10 @@ for linea in archivoratings:                                #Recorre el archivo 
         if numerolinea > 500:
             break
 archivoratings.close()
-print ratings
+
+## Ingreso de Usuario ##
+
+userID = raw_input("Ingrese el ID del Usuario al cual recomendarle libros: ")
+k = int(raw_input("Ingrese cuantos libros desea recomendar: "))
+
+## Codigo Principal ##
