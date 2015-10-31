@@ -18,7 +18,16 @@
 
 #Dicc --> polio = {} --> polio[User-ID] = [(ISBN,Book-Rating),...
 
-"def correlacion(usuario1, usuario2):"
+def correlacion(usuario1, usurero):
+    libros1 = set()
+    libros2= set()
+    usu1 = {}
+    usu2 = {}
+    for tupla in ratings[usuario1]:
+        libro, rating = tupla
+        libros1.add(libro)
+        
+        
 
 archivoratings=open("BX-Book-Ratings.csv")
 ratings = {}
@@ -35,4 +44,5 @@ for linea in archivoratings:
             ratings[int(usuario)].append((libro,int(rating)))
         if numerolinea > 500:
             break
+archivoratings.close()
 print ratings
