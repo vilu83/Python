@@ -48,19 +48,19 @@ def correlacion(usuario1, usurero):
         
         
 
-archivoratings=open("BX-Book-Ratings.csv")
-ratings = {}
-numerolinea = 0
-for linea in archivoratings:
-    numerolinea += 1
-    if numero != 1:    
-        linea = linea.replace('"','')
-        lineamod = linea.strip().split(";")
+archivoratings=open("BX-Book-Ratings.csv")                  #Abre el archivo especificado
+ratings = {}                                                #Crea un diccionario vacío que será de la forma Diccionario[Usuario] = [(Libro, Rating),...]. Esto es para no tener que recorrer el archivo de texto mas de una vez.
+numerolinea = 0                                             #Contador de lineas
+for linea in archivoratings:                                #Recorre el archivo por lineas
+    numerolinea += 1                                        #Suma 1 al contador de lineas
+    if numerolinea != 1:                                    #Verifica que no sea la primera linea del archivo, la cual describe la forma del archivo y no tiene ningun dato de utilidad
+        linea = linea.replace('"','')                       #Elimina las comillas
+        lineamod = linea.strip().split(";")                 #Convierte la linea de string a lista
         usuario, libro, rating = lineamod
-        if usuario not in ratings:
-            ratings[int(usuario)]=[(libro,int(rating))]
-        else:
-            ratings[int(usuario)].append((libro,int(rating)))
+        if usuario not in ratings:                          #Si el usuario no esta en el diccionario de ratings,
+            ratings[usuario]=[(libro,int(rating))]          #utiliza el usuario como llave y el valor es una lista de tuplas, con las tuplas de forma (Libro, Rating)
+        else:                                               #Si el usuario si esta en el diccionario de ratings,
+            ratings[usuario].append((libro,int(rating)))    #agrega una nueva tupla de la misma forma a la lista
         if numerolinea > 500:
             break
 archivoratings.close()
