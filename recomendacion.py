@@ -42,7 +42,7 @@ def estimacion_rating (usuarioA, libro):
     r_parcial2 = 0
     for usr in ratings.keys():  #se itera sobre cada usuario
         if usr != usuarioA:
-            for book in rating[usr]:
+            for book in ratings[usr]:
                 if libro == book[0]:
                     r_parcial1 += (float(correlacion(usuarioA, usr)*ratings[usr][1]))
                     r_parcial2 += (float(abs(correlacion(usuarioA,usr))))
@@ -76,7 +76,8 @@ def ordenar(diccionario):
 
 def topLibros(usuario):
     allBooks, dataBooks = allBooksData()
-    librosNoLeidos = allBooks - LibrosUsuario(usuario)
+    librosLeidos, librosRating = LibrosUsuario(usuario)
+    librosNoLeidos = allBooks - librosLeidos
     ratingEstimadoLibros = {}                            #Diccionario de la forma {isbn:ratingEstimado}
     for book in librosNoLeidos:
         ratingEstimadoLibros[book] = estimacion_rating(usuario,book)
@@ -110,11 +111,11 @@ k = int(raw_input("Ingrese cuantos libros desea recomendar: "))
 ## Codigo Principal ##
 
 topk = topLibros(userID)[:k]
-allBooks, bookData = allBookData()
+allBooks, bookData = allBooksData()
 print "Te Recomendamos los siguientes libros:"
 recomendacion = "{0}. {1} de {2} del anno {3}, publicado por {4}"
 for indLibroR in range(len(topk)):
-    topk[indLibroR] = isbn
+    isbn = topk[indLibroR]
     nombre, autor, anno, editorial = bookData[isbn]
     print recomendacion.format(indLibroR, nombre, autor, anno, editorial)
 
