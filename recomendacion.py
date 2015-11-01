@@ -24,11 +24,11 @@ def correlacion(usuario1, usurero):
     MediaUsu1 = sum(usu1.values())/len(usu1.values())         #Media de los ratings del usuario 1, sin contar los ratings 0
     MediaUsu2 = sum(usu2.values())/len(usu2.values())         #Media de los ratings del usuario 2, sin contar los ratings 0
     InterLibros = libros1 & libros2                           #Conjunto producto de la interseccion de los libros que han leido el usuario 1 y el 2
+    if len(InterLibros) == 0:
+            return False
     Sumatoria1 = 0                                            #Sumatoria de la formula de correlacion. Corresponde a la sumatoria que esta por sobre la fraccion
     Sumatoria2 = 0                                            #Sumatoria de la formula de correlacion. Corresponde a la sumatoria que esta a la izquierda, debajo de la fraccion
     Sumatoria3 = 0                                            #Sumatoria de la formula de correlacion. Corresponde a la sumatoria que esta a la derecha, debajo de la fraccion
-    print usuario1, usurero
-    print usu1, usu2
     for libro in InterLibros:                                 #Recorre el conjunto intersectado
         Sumatoria1 += (usu1[libro] - MediaUsu1) * (usu2[libro] - MediaUsu2)           #Se aplica la formula de correlacion
         Sumatoria2 += (usu1[libro] - MediaUsu1)**2                                    #Se aplica la formula de correlacion
@@ -46,12 +46,15 @@ def estimacion_rating (usuarioA, libro):
         librosA, A = LibrosUsuario(usuarioA)
         librosusr, u = LibrosUsuario(usr)
         if usr != usuarioA and len(librosA & librosusr) > 0:
-            for book in ratings[usr]:                
-                if libro == book[0]:
-                    r_parcial1 += (float(correlacion(usuarioA, usr)*ratings[usr][1]))
-                    r_parcial2 += (float(abs(correlacion(usuarioA,usr))))           
-    resultado = (r_parcial1/r_parcial2)
-    return resultado
+            for book in ratings[usr]:
+                if libro == book[0] and book[1] != 0:
+                    r_parcial1 += (correlacion(usuarioA, usr)*book[1])
+                    r_parcial2 += (abs(correlacion(usuarioA,usr)))
+    if r_parcial2 == 0:
+        return None
+    else:
+        resultado = (r_parcial1/r_parcial2)
+        return resultado
 
 def allBooksData():                                            #Retorna Conjunto el ISBN todos los Libros Registrados y un diccionario de forma {ISBN: ("Nombre","Autor","Anno de Publicacion","Editorial"}
     librosF = open("BX-Books.csv")
@@ -91,7 +94,6 @@ def topLibros(usuario):
 
 ## Crear Diccionario que tenga los datos del archivo BX-Book_Ratings.csv ##
 
-print 'Cargando Base de Datos...'
 archivoratings=open("BX-Book-Ratings.csv")                  #Abre el archivo especificado
 ratings = {}                                                #Crea un diccionario vacio que sera de la forma Diccionario[Usuario] = [(Libro, Rating),...]. Esto es para no tener que recorrer el archivo de texto mas de una vez.
 numerolinea = 0                                             #Contador de lineas
