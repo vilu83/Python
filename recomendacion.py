@@ -33,6 +33,8 @@ def correlacion(usuario1, usurero):
         Sumatoria1 += (usu1[libro] - MediaUsu1) * (usu2[libro] - MediaUsu2)           #Se aplica la formula de correlacion
         Sumatoria2 += (usu1[libro] - MediaUsu1)**2                                    #Se aplica la formula de correlacion
         Sumatoria3 += (usu2[libro] - MediaUsu2)**2                                    #Se aplica la formula de correlacion
+    if Sumatoria2 or Sumatoria3 == 0:
+        return 0
     Correlacion = Sumatoria1 / ((Sumatoria2)**0.5 * (Sumatoria3)**0.5)                #Se aplica la formula de correlacion
     return Correlacion                                                                #Retorna el resultado de la formula                         #Retorna el resultado de la formula
         
@@ -51,7 +53,7 @@ def estimacion_rating (usuarioA, libro):
                     r_parcial1 += (correlacion(usuarioA, usr)*book[1])
                     r_parcial2 += (abs(correlacion(usuarioA,usr)))
     if r_parcial2 == 0:
-        return None
+        return 0
     else:
         resultado = (r_parcial1/r_parcial2)
         return resultado
@@ -83,7 +85,6 @@ def ordenar(diccionario):
     return orden
 
 def topLibros(usuario):
-    allBooks, dataBooks = allBooksData()
     librosLeidos, librosRating = LibrosUsuario(usuario)
     librosNoLeidos = allBooks - librosLeidos
     ratingEstimadoLibros = {}                            #Diccionario de la forma {isbn:ratingEstimado}
