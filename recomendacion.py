@@ -84,7 +84,7 @@ def ordenar(diccionario):
                 orden[i+1] = aux
     return orden
 
-def topLibros(usuario):
+def topLibros(usuario,allBooks):
     librosLeidos, librosRating = LibrosUsuario(usuario)
     librosNoLeidos = allBooks - librosLeidos
     ratingEstimadoLibros = {}                            #Diccionario de la forma {isbn:ratingEstimado}
@@ -119,8 +119,8 @@ k = int(raw_input("Ingrese cuantos libros desea recomendar: "))
 
 ## Codigo Principal ##
 
-topk = topLibros(userID)[:k]
 allBooks, bookData = allBooksData()
+topk = topLibros(userID,allBooks)[:k]
 print "Te Recomendamos los siguientes libros:"
 recomendacion = "{0}. {1} de {2} del anno {3}, publicado por {4}"
 for indLibroR in range(len(topk)):
