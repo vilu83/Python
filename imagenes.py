@@ -14,9 +14,9 @@ def espejovertical(matriz):
 	ArrayAImagen(espejo, salida)
 	os.system(salida)
 
-def  escaladeMrgrey (matriz)
+def  escaladeMrgrey (matriz):
 	for pixely in matriz:
-		for pixelx in matriz:
+		for pixelx in pixely:
 			red, green, blue = pixelx[pixely][0]
 			gris = (red+green+blue)/3
 			valorRGBnew = [gris, gris, gris]
