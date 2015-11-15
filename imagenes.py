@@ -22,13 +22,13 @@ def espejo(matriz):
     os.system(salida)
 
 def  escaladeMrgrey (matriz):
-	for pixely in matriz:
-		for pixelx in pixely:
-			red, green, blue = pixelx[pixely][0]
+	for pixely in range(len(matriz)):
+		for pixelx in range(len(matriz[pixely])):
+			red, green, blue = matriz[pixely][pixelx]
 			gris = (red+green+blue)/3
 			valorRGBnew = [gris, gris, gris]
-			pixely[pixelx] = valorRGBnew
-
+			matriz[pixely][pixelx] = valorRGBnew
+			
 def rotar(imagenMatriz, rotacion):	#1=90[grado],2=180[grado],3=270[grado]
 	imagenMatriz = numpy.rot90(numpy.array(imagenMatriz),rotacion).tolist()
 	convertirMatrizAImagen(imagenMatriz, 'yummy.png')
@@ -42,7 +42,7 @@ def negativo(matriz):
 
 
 while True:
-	nombre = raw_input("Ingrese el nombre de la imagen: ")
+	nombre = raw_input("Ingrese el nombre de la imagen (sin extension) : ")
 	tipo = raw_input("Ingrese el tipo de archivo de la imagen(inclyendo punto): ")
 	imagen = nombre+tipo
 	archivo = nombre + ".txt"
