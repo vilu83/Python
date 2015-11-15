@@ -13,6 +13,13 @@ def espejovertical(matriz):
 	salida = nombre+"espejovertical"+tipo
 	ArrayAImagen(espejo, salida)
 	os.system(salida)
+	
+def espejo(matriz):
+    espejo = np.array(matriz)
+    espejo = np.fliplr(espejo)
+    salida = nombre+"espejo"+tipo
+    ArrayAImagen(espejo, salida)
+    os.system(salida)
 
 def  escaladeMrgrey (matriz):
 	for pixely in matriz:
