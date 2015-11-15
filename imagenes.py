@@ -6,9 +6,9 @@ import os
 
 def abrirArchivo(nombreArchivo):
 	if sys.platform == 'linux2':
-    	subprocess.call(["xdg-open", nombreArchivo])
+    		subprocess.call(["xdg-open", nombreArchivo])
 	else:
-    	os.startfile(nombreArchivo)
+    		os.startfile(nombreArchivo)
 
 def ArrayAImagen(arr, nombreSalida):
 	im = Image.fromarray(arr.clip(0,255).astype('uint8'), 'RGB')
