@@ -29,15 +29,12 @@ def espejo(matriz):
     
 
 def  escaladeMrgrey (matriz):
-        for pixely in matriz:
-            for pixelx in matriz:
-                red, green, blue = pixelx[pixely][0]
-                gris = (red+green+blue)/3
-                valorRGBnew = [gris, gris, gris]
-                pixely[pixelx] = valorRGBnew
-        salida = nombre+"EDG.png"
-        convertirMatrizAImagen(matriz, salida)
-        abrirArchivo(salida)
+	for pixely in range(len(matriz)):
+		for pixelx in range(len(matriz[pixely])):
+			red, green, blue = matriz[pixely][pixelx]
+			gris = (red+green+blue)/3
+			valorRGBnew = [gris, gris, gris]
+			matriz[pixely][pixelx] = valorRGBnew
 
 
 def rotar(imagenMatriz, rotacion):	#1=90[grado],2=180[grado],3=270[grado]
