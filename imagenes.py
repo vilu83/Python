@@ -27,7 +27,11 @@ def  escaladeMrgrey (matriz):
 			red, green, blue = pixelx[pixely][0]
 			gris = (red+green+blue)/3
 			valorRGBnew = [gris, gris, gris]
-			pixey[pixelx] = valorRGBnew
+			pixely[pixelx] = valorRGBnew
+
+def rotar(imagenMatriz, rotacion):	#1=90[grado],2=180[grado],3=270[grado]
+	imagenMatriz = numpy.rot90(numpy.array(imagenMatriz),rotacion).tolist()
+	convertirMatrizAImagen(imagenMatriz, 'yummy.png')
 
 def negativo(matriz):
 	for filaPix in matriz:
