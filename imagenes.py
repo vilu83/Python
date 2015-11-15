@@ -4,10 +4,16 @@ from funciones import *
 import numpy as np
 import os
 
+def abrirArchivo(nombreArchivo):
+	if sys.platform == 'linux2':
+    	subprocess.call(["xdg-open", nombreArchivo])
+	else:
+    	os.startfile(nombreArchivo)
+
 def ArrayAImagen(arr, nombreSalida):
 	im = Image.fromarray(arr.clip(0,255).astype('uint8'), 'RGB')
 	im.save(nombreSalida)
-	os.system(nombreSalida)
+	abrirArchivo(nombreSalida)
 	return True
 
 def espejovertical(matriz):
@@ -31,7 +37,7 @@ def  escaladeMrgrey (matriz):
                 pixely[pixelx] = valorRGBnew
         salida = nombre+"EDG.png"
         convertirMatrizAImagen(matriz, salida)
-        os.system(salida)
+        abrirArchivo(salida)
 
 
 def rotar(imagenMatriz, rotacion):	#1=90[grado],2=180[grado],3=270[grado]
@@ -48,7 +54,7 @@ def negativo(matriz):
                 pix[color] = 255 - pix[color]
     salida = nombre+"Negativo.png"
     convertirMatrizAImagen(matriz1, salida)
-    os.system(salida)
+    abrirArchivo(salida)
 
 nombre = raw_input("Ingrese el nombre de la imagen: ")
 tipo = "."+raw_input("Ingrese el tipo de archivo de la imagen: ")
