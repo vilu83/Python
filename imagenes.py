@@ -3,6 +3,7 @@ from PIL import Image
 from funciones import *
 import numpy as np
 import os
+import sys
 
 def abrirArchivo(nombreArchivo):
 	if sys.platform == 'linux2':
@@ -16,42 +17,54 @@ def ArrayAImagen(arr, nombreSalida):
 	abrirArchivo(nombreSalida)
 	return True
 
-def espejovertical(matriz):
-	espejov = np.array(matriz)[::-1]
-	salida = nombre+"EspejoVertical.png"
-	ArrayAImagen(espejov, salida)
+def espejovertical(arreglo, contador):
+	arreglo = np.array(arreglo)[::-1]
+	salida = nombre+str(contador)+".png"
+	ArrayAImagen(arreglo, salida)
+	contador += 1
+	return arreglo, contador
 
-def espejo(matriz):
-    espejo = np.array(matriz)
-    espejo = np.fliplr(espejo)
-    salida = nombre+"Espejo.png"
-    ArrayAImagen(espejo, salida)
+def espejo(arreglo, contador):
+    arreglo = np.fliplr(arreglo)
+    salida = nombre+str(contador)+".png"
+    ArrayAImagen(arreglo, salida)
+    contador += 1
+    return arreglo, contador
     
 
-def  escaladeMrgrey (matriz):
-	for pixely in range(len(matriz)):
-		for pixelx in range(len(matriz[pixely])):
-			red, green, blue = matriz[pixely][pixelx]
+def  escaladeMrgrey (arreglo, contador):
+	matriztemp = arreglo.tolist()
+	for pixely in range(len(matriztemp)):
+		for pixelx in range(len(matriztemp[pixely])):
+			red, green, blue = matriztemp[pixely][pixelx]
 			gris = (red+green+blue)/3
 			valorRGBnew = [gris, gris, gris]
-			matriz[pixely][pixelx] = valorRGBnew
+			matriztemp[pixely][pixelx] = valorRGBnew
+	salida = nombre+str(contador)+".png"
+	arreglo = np.array(matriztemp)
+	ArrayAImagen(arreglo, salida)
+	contador += 1
+	return arreglo, contador
+
+def rotar(arreglo, contador, rotacion):	#1=90[grado],2=180[grado],3=270[grado]
+	arreglo = numpy.rot90(arreglo,rotacion)
+	salida = nombre+str(contador)+".png"
+	ArrayAImagen(arreglo, salida)
+	contador += 1
+	return arreglo, contador
 
 
-def rotar(imagenMatriz, rotacion):	#1=90[grado],2=180[grado],3=270[grado]
-	imagenMatriz = numpy.rot90(numpy.array(imagenMatriz),rotacion)
-	salida = nombre+"Rotacion"+str(rotacion*90)+".png"
-	ArrayAImagen(imagenMatriz, salida)
-
-
-def negativo(matriz):
-    matriz1 = matriz
+def negativo(arreglo, contador):
+    matriz1 = arreglo.tolist()
     for filaPix in matriz1:
         for pix in filaPix:
             for color in range(3):
                 pix[color] = 255 - pix[color]
-    salida = nombre+"Negativo.png"
-    convertirMatrizAImagen(matriz1, salida)
-    abrirArchivo(salida)
+    arreglo = np.array(matriz1)
+    salida = nombre+str(contador)+".png"
+    ArrayAImagen(arreglo, salida)
+    contador +=1
+    return arreglo, contador
 
 nombre = raw_input("Ingrese el nombre de la imagen: ")
 tipo = "."+raw_input("Ingrese el tipo de archivo de la imagen: ")
@@ -59,6 +72,8 @@ imagen = nombre+tipo
 archivo = nombre + ".txt"
 convertirImagenAArchivo(imagen, archivo)
 matriz = leerArchivo(archivo)
+arreglo = np.array(matriz)
+contador = 1
 flag = True
 dic = {"espejo": espejo,
        "espejovertical": espejovertical,
@@ -73,9 +88,9 @@ while flag:
         print "Por favor, ingrese un comando valido"
     else:
         if comando in ["90","180","270"]:
-            rotar(matriz, int(comando)/90)
+            arreglo, contador = rotar(arreglo, contador, int(comando)/90)
         else:
-            dic[comando](matriz)
+            arreglo, contador = dic[comando](arreglo, contador)
         while fleg:
             asd = raw_input("Desea realizar otra operacion? (s/n): ").lower()
             if asd not in ["s","n"] or asd == '':
@@ -84,6 +99,4 @@ while flag:
                 fleg = False
                 if asd == "n":
                     flag = False
-        
-    
-    
+                    ArrayAImagen(arreglo, nombre+"Final.png")
