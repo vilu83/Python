@@ -17,6 +17,27 @@ def ArrayAImagen(arr, nombreSalida):
 	abrirArchivo(nombreSalida)
 	return True
 
+def sepia(arreglo,contador):
+            matriztemp = arreglo.tolist()
+            for pixely in range(len(matriztemp)):
+                        for pixelx in range(len(matriztemp[pixely])):
+                                red, green, blue = matriztemp[pixely][pixelx]
+                                newred =(red * 0.393) + (green * 0.769) + (blue * 0.189))
+                                newgreen =(red * 0.349) + (green * 0.686) + (blue * 0.168))
+                                newblue =(red * 0.272) + (green * 0.534) + (blue * 0.131))
+                                if newred > 254:
+                                        newred = 255
+                                if newgreen > 254:
+                                        newgreen = 255
+                                if newblue > 254:
+                                        newblue = 255
+                                matriztemp[pixely][pixelx] = [newred, newgreen, newblue]
+            salida = nombre+str(contador)+".png"
+            arreglo = np.array(matriztemp)
+            ArrayAImagen(arreglo, salida)
+            contador += 1
+            return arreglo, contador
+
 def espejovertical(arreglo, contador):
 	arreglo = np.array(arreglo)[::-1]
 	salida = nombre+str(contador)+".png"
@@ -78,13 +99,14 @@ flag = True
 dic = {"espejo": espejo,
        "espejovertical": espejovertical,
        "edg": escaladeMrgrey,
-       "negativo": negativo}
+       "negativo": negativo,
+       "sepia": sepia}
        
 while flag:
     fleg = True
-    print "Comandos disponibles:\nespejo : Aplica efecto espejo a la imagen\nespejovertical : Aplica efecto de espejo vertical a la imagen\nedg : Aplica efecto de escala de grises a la imagen\nnegativo: Aplica efecto negativo a la imagen\n90 : Rota la Imagen en 90º\n180: Rota la imagen en 180º\n270 : Rota la imagen en 270º"
+    print "Comandos disponibles:\nsepia: Aplica efecto sepia a la imagen\nespejo : Aplica efecto espejo a la imagen\nespejovertical : Aplica efecto de espejo vertical a la imagen\nedg : Aplica efecto de escala de grises a la imagen\nnegativo: Aplica efecto negativo a la imagen\n90 : Rota la Imagen en 90º\n180: Rota la imagen en 180º\n270 : Rota la imagen en 270º"
     comando = raw_input("Ingrese un comando: ").lower()
-    if comando == "" or comando not in ["espejo", "espejovertical", "edg", "negativo", "90", "180", "270"]:
+    if comando == "" or comando not in ["espejo", "espejovertical", "edg", "negativo", "90", "180", "270", "sepia"]:
         print "Por favor, ingrese un comando valido"
     else:
         if comando in ["90","180","270"]:
